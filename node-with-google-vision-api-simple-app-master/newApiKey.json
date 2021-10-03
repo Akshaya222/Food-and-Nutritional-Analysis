@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "symbolic-card-326309",
+  "private_key_id": "1c6adbf745d8dd6b02ecc4b95aa3dc4d80793650",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC5cEX9Pm+gTKgv\nTrla6Mv/+J4D8/J4JJfejRPDFJzO8YC1r6DJHXuEIr57WjTYJU5NDekeuKzwbzDt\n1M7RdklznNenqoUIGxZUqasXQUiGcwGalxQZLR6VFNaQLeZMxdQUg5D6w/CbHCJF\nblPdURciduu4XjAmh9MSZ632VGHAA3sGIAA2pejy2+qOQZR56xUpFWwmsrCs8ev5\ne5ZVaw7kO4vgTp7tGqzoAVkxixO3b/HLcraiPoljd7XRPMVQz7E+oJ2mK6CIFuNl\nQ98dqH2wcUyIhHBtI3Seiujs44Wx4s6dE5k8CqSJY3MH3W73UVsdRjFrS8JV8oR9\nDoXEQEg/AgMBAAECggEABatfaGuv6/22p/jx2natmKjYOT9hwAyWXBEsySpof5Hg\noS1lGWD+YBQpMLTu/VYT+8UbcHtYRjg6uGVo4VHgKFm45NZmH3unMMrIgVCB+sz/\nVTjzPgXOyTi23/eXR+zwcU7IcEeXTpa18YYlqD7iGdqllaBuO8Sr+QRpzCiDneQv\n/d9/Ufk3x8HIjOvfgbbDEXlI+ubiia8HYYh7roWyY9kXnTLgbxZv6MS3/jiERhi9\nKCn66SM5TnSAWfR5k590CKvh5dxwavGH3P4sCx4oYBZPrX/UegwI30TXvjxTG+P1\nJKdR1V3PK8ltSrp+HWVYzsmcwOc+TX2jebF+e9hzwQKBgQDqeQWuh9cPygPfQs1P\nKfOMchOT9Gr9V+cqCFBJ68xhVKwGWh9cK2uJzS0AhPYwSWMvXQ36hQsdI2AK4RNm\nkeQDKxIw2wI8mqse3XMXr0tFdDQKuv8fZabX+UxU+p2a4nh7PcIRQmmKCmjaH4Lk\nXP3WtTny5wlXb5YlYxE39Jf7XwKBgQDKdsQ5DI/ZP3i78oSHCWfpGvXGy98srfrS\nOWqveRLe77/M81yUUXrL0IRwJe/AeLIDbw6yQtT9ZATpL9qOTgOzgwV49tCD0epS\ntaLoDzz1rj8TZ8wEQfsRV46D4WY9ky/DFtvW2MEE09L6125SkgwyqWkEqHXLsfEY\nXK/l2gO/IQKBgQC63/PoU3nTqrWFVo+dvZjP4ge6jz5KZqnl9TRQhi+hj0N/2IpQ\nAoc2ECIC3PX+LC9yC19dwHXIJm6gnRzCThqFb+mSqKrStI8YDXVydhKu61ujBcDa\nPEFKtvXgcNH2JPPTfbhT2zOUgpFo7156NadWXaAu+XaXimcHqzqI91e+TwKBgQCO\n1YkLYlRdhMzNc4ORrM4VAwMfk5bH85m/E+izEKyCgQuEMLBAptcF0P6ODAV/eObF\nS2VH16Rhe12HkU4UFO/Bhg6nTyC9zqsMXL4oDxAHlz1CmHizDEVu76FIYwz5JcyN\nSqQfh11s5W+zraZUNFrMpv3C3oH0CX44nLMvakY4YQKBgHiU76rXHRCGLjlK3xXd\neNl9OPnZ4t6kXEdPMXYA0veHrkOaOGYGknmo2sIZj0wc5s4vsxG6F6wZc5IKOF5/\nlB4ZxGITkGOZsXYLqQAZzZd5nKAY8Krrf9rIofM6XJkjJmSU1ayoSg6M8QIOD8mY\nCy052fWkiDd1j+QSUruIYAeN\n-----END PRIVATE KEY-----\n",
+  "client_email": "foodanalytics@symbolic-card-326309.iam.gserviceaccount.com",
+  "client_id": "110224597357291798911",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/foodanalytics%40symbolic-card-326309.iam.gserviceaccount.com"
+}
