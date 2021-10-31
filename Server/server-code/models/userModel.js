@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same!'
     }
   },
+  coins: {
+    type: Number,
+    default: 10
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date
