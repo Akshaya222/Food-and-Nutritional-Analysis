@@ -7,6 +7,7 @@ require('./db/connection');
 
 const userRouter=require('./routes/userRoutes');
 const feedbackRouter = require('./routes/feedbackRoutes');
+const imageRouter = require('./routes/imageRoutes');
 
 const app=express();
 
@@ -16,6 +17,7 @@ app.use(cors())
 
 app.use("/user",userRouter);
 app.use("/feedback", feedbackRouter);
+app.use('/images', imageRouter);
 
 app.get("/",(req,res)=>{
     res.status(200).send({
