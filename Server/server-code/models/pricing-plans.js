@@ -18,7 +18,7 @@ const schema = new mongoose.schema({
     type: String
   },
   couponCodes: [{
-    codeName: {
+    name: {
       type: String,
       required: [true, 'Coupon code name is required...']
     },
