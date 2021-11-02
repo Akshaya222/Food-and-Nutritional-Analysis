@@ -6,6 +6,7 @@ dotenv.config();
 require('./db/connection');
 
 const userRouter=require('./routes/userRoutes');
+const feedbackRouter = require('./routes/feedbackRoutes');
 
 const app=express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 
 app.use("/user",userRouter);
+app.use("/feedback", feedbackRouter);
 
 app.get("/",(req,res)=>{
     res.status(200).send({

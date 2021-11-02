@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const schema = new mongoose.schema({
+const schema = new mongoose.Schema({
   userID: {
     type: String,
     required: [true, 'User ID is required...']

@@ -44,6 +44,13 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 10
   },
+  pricingPlan: {
+    type: String
+  },
+  freeLimit: {
+    type: Number,
+    default: 3
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date

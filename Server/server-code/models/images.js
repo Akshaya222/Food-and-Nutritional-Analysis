@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const schema = new mongoose.schema({
-  imageID: {
-    type: String,
-    required: [true, 'Image ID is required...']
+const schema = new mongoose.Schema({
+  url: {
+    type: String, // s3 
+    required: [true, 'Image url is required...']
   },
   userID: {
     type: String,
