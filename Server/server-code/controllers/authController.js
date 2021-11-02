@@ -2,7 +2,8 @@ const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const UserModel = require('./../models/userModel');
-const {successHandler,failureHandler}=require('../utils/responseHandler')
+const {successHandler,failureHandler}=require('../utils/responseHandler');
+const {nanoid}=require('nanoid');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -56,10 +57,11 @@ exports.signup = async (req, res, next) => {
       throw error;
     }
     const newUser = await UserModel.create({
-      username,
+      name:username,
       email,
       password,
-      passwordConfirm
+      passwordConfirm,
+      code:nanoid(6)
     });
     
     if(!newUser){

@@ -1,12 +1,13 @@
 const express=require('express');
 const dotenv=require('dotenv');
-const cors=require('cors')
+const cors=require('cors');
 
 dotenv.config();
 require('./db/connection');
 
 const userRouter=require('./routes/userRoutes');
 const feedbackRouter = require('./routes/feedbackRoutes');
+const referralRouter=require('./routes/refferalRoutes');
 
 const app=express();
 
@@ -16,6 +17,7 @@ app.use(cors())
 
 app.use("/user",userRouter);
 app.use("/feedback", feedbackRouter);
+app.use("/refferals",referralRouter);
 
 app.get("/",(req,res)=>{
     res.status(200).send({

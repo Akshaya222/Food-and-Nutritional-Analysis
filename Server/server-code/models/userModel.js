@@ -51,6 +51,22 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 3
   },
+  code:{
+    type:String
+  },
+  referrerCode:{
+    type:String
+ },
+ referrerId:{
+  type:mongoose.Schema.Types.ObjectId,
+  ref:"User"
+},
+refferals:[
+  {
+  type:mongoose.Schema.Types.ObjectId,
+  ref:"User"
+  }
+],
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date
