@@ -19,7 +19,7 @@ exports.likeFeedback = async (req, res) => {
       err.statusCode = 400;
       throw err;
     }
-    await Feedbacks.updateOne({ _id: feedbackID }, { likes: { $inc: 1 } });
+    await Feedbacks.updateOne({ _id: feedbackID }, { $inc: { likes: 1 } });
 
     successHandler(res, (data = {}), (message = "Feedback liked !!"));
   } catch (e) {
@@ -35,7 +35,7 @@ exports.dislikeFeedback = async (req, res) => {
       err.statusCode = 400;
       throw err;
     }
-    await Feedbacks.updateOne({ _id: feedbackID }, { dislikes: { $inc: 1 } });
+    await Feedbacks.updateOne({ _id: feedbackID }, { $inc: { dislikes: 1 } });
 
     successHandler(res, (data = {}), (message = "Feedback disliked !!"));
   } catch (e) {
