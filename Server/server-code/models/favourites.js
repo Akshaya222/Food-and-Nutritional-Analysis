@@ -5,7 +5,10 @@ const schema = new mongoose.Schema({
     type: String,
     required: [true, 'User ID is required...']
   },
-  favouriteImages: [String] // image Id
+  imageID: {
+    type: String,
+    required: [true, 'Favourite image required...']
+  } // image Id
 });
 
 const Favourites = mongoose.model('favourites', schema);
