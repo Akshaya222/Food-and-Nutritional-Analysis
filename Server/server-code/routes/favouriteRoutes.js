@@ -6,8 +6,8 @@ const {
   listFavourites
 } = require("../controllers/favourites");
 
-router.post("/add", addFavourite);
-router.post("/remove", removeFavourite);
+router.put("/add", addFavourite);
+router.put("/remove", removeFavourite);
 router.get("/list", listFavourites);
 
 module.exports = router;

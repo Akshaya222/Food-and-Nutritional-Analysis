@@ -45,7 +45,7 @@ exports.dislikeFeedback = async (req, res) => {
 
 exports.listFeedbacks = async (req, res) => {
   try {
-    const userID = req.query.userID;
+    const userID = req.body.userID;
     if (!userID) {
       let err = new Error("User ID required...");
       err.statusCode = 400;
@@ -58,3 +58,14 @@ exports.listFeedbacks = async (req, res) => {
     failureHandler(res, e.message, e.statusCode);
   }
 };
+
+exports.allFeedbacks=async(req,res)=>{
+  let err;
+  try{
+      let feedbacks=await Feedbacks.find({});
+      successHandler(res,feedbacks, (message = "All Feedbacks"));
+  }
+  catch(e){
+    failureHandler(res, e.message, e.statusCode);
+  }
+}

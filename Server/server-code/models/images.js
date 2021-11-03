@@ -8,6 +8,10 @@ const schema = new mongoose.Schema({
   userID: {
     type: String,
     required: [true, 'User ID is required...']
+  },
+  isFavorite:{
+    type:Boolean,
+    default:false
   }
 });
 
