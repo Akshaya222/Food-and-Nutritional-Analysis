@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
   },
   expiryDate: {
     type: Date,
-    default: Date.now() 
+    default: new Date(new Date().getTime()+(5*24*60*60*1000))
   },
   benefits: [String],
   description:{
@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
     },
     expiry: {
       type: Date,
-      default: Date.now()
+      default: new Date(new Date().getTime()+(15*24*60*60*1000))
     }
   }]
 });
