@@ -11,6 +11,7 @@ const referralRouter=require('./routes/refferalRoutes');
 const imageRouter = require('./routes/imageRoutes');
 const favouriteRouter = require('./routes/favouriteRoutes');
 const pricingPlanRouter = require('./routes/pricing-plan');
+const paymentRouter=require('./routes/paymentRouter');
 
 const app=express();
 
@@ -24,6 +25,7 @@ app.use("/refferals",referralRouter);
 app.use('/images', imageRouter);
 app.use('/favourites', favouriteRouter);
 app.use("/pricing-plans", pricingPlanRouter);
+app.use("/payments",paymentRouter)
 
 app.get("/",(req,res)=>{
     res.status(200).send({
