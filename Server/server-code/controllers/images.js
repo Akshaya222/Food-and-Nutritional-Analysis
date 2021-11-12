@@ -53,7 +53,7 @@ exports.addImage = async (req, res) => {
 };
 
 exports.listImages = async (req, res) => {
-  console.log('List Images');
+  console.log('List Images',req.query.userID);
   try{
     const userID = req.query.userID;
     if (!userID){

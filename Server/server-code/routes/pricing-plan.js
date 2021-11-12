@@ -12,9 +12,9 @@ const {
 
 router.post("/add", addNewPricingPlan);
 router.get("/list", listPricingPlans);
-router.post("/delete", deletePricingPlans);
-router.post("/add-coupon", addCoupon);
-router.post('/activate-plan', activatePlan);
-router.post('/apply-coupon', applyCoupon);
+router.delete("/delete", deletePricingPlans);
+router.put("/add-coupon", addCoupon);
+router.put('/activate-plan', activatePlan);
+router.put('/apply-coupon', applyCoupon);
 
 module.exports = router;

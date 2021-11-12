@@ -14,7 +14,6 @@ module.exports.addPayment=async(req, res, next) => {
     const { token } = authToken;
     const { card } = token;
 
-    console.log(card);
     console.log("============================================== payment initiate =======================")
     const userProduct = product;
 
@@ -45,8 +44,6 @@ module.exports.addPayment=async(req, res, next) => {
              }
      
          },{ idempotencyKey: idempotencyKey})
-         console.log("charge response")
-         console.log(response,"idIs",response.id,"sourceis",response.source,"amountis",response.amount)
          const newPayment=await Payment.create({
              userID,
              pricingPlanID,

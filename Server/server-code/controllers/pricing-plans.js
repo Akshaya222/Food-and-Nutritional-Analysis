@@ -3,7 +3,9 @@ const User = require('../models/userModel');
 const { successHandler, failureHandler } = require("../utils/responseHandler");
 
 exports.addNewPricingPlan = async (req, res) => {
-  console.log("Add Pricing plan");
+  console.log("Add Pricing plan",req.body);
+//const obj = Object.assign({},req.body)
+//console.log(JSON.parse(JSON.stringify(req.body)))
   try {
     await PricingPlans.create(req.body);
     successHandler(res, (data = {}), (message = "New pricing plan added"));
@@ -16,23 +18,22 @@ exports.listPricingPlans = async (req, res) => {
   console.log("List Pricing plans");
   try {
     const data = await PricingPlans.find();
-    successHandler(res, data, (message = "New pricing plan added"));
+    successHandler(res, data, (message = "Pricing plans fetched successfully"));
   } catch (e) {
     failureHandler(res, e.message, e.statusCode);
   }
 };
 
 exports.deletePricingPlans = async (req, res) => {
-  console.log("Delete Pricing plans");
   try {
-    const { planID } = req.body;
+    const  planID  = req.query.planID;
     if (!planID) {
       let err = new Error("Plan ID required...");
       err.statusCode = 400;
       throw err;
     }
-    await PricingPlans.findOneAndDelete();
-    successHandler(res, data, (message = "Pricing Plan deleted..."));
+    await PricingPlans.findByIdAndDelete(planID);
+    successHandler(res, {}, (message = "Pricing Plan deleted..."));
   } catch (e) {
     failureHandler(res, e.message, e.statusCode);
   }
@@ -148,6 +149,7 @@ exports.applyCoupon = async (req, res) => {
     // planData['price'] = planData['price'] - validCoupon['amount'];
 
     let data = {
+      originalPrice:planData['price'],
       discount: validCoupon['amount'],
       updatedPrice: planData['price'] - validCoupon['amount']
     }

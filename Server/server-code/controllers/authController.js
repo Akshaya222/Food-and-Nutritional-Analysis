@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('./../models/userModel');
 const {successHandler,failureHandler}=require('../utils/responseHandler');
 const {nanoid}=require('nanoid');
+const AWS=require("aws-sdk");
+const multerS3=require("multer-s3");
+const multer=require('multer')
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -169,6 +172,53 @@ exports.restrictTo = (...roles) => {
   };
 };
 
+const BUCKET_NAME_IMAGES="akshaya-user-images";
+
+const s3=new AWS.S3( {
+    accessKeyId: process.env.AWS_ACCESS_ID,
+    secretAccessKey:process.env.AWS_SECRET_KEY,
+    region:'ap-south-1'
+})
+
+var uploadImages = multer({
+  storage: multerS3({
+      s3: s3,
+      bucket: BUCKET_NAME_IMAGES,
+      acl:'public-read',
+      metadata: function (req, file, cb) {
+          cb(null, {fieldName: file.fieldname});
+        },
+      key: function (req, file, cb) {
+          console.log(file);
+          cb(null, file.originalname); //use Date.now() for unique file keys
+      }
+  })
+}).single('image');
+
+
+exports.addPhoto=async(req,res)=>{
+  console.log("Add Image");
+  const userID=req.query.userID;
+  uploadImages(req,res,async function(error){
+    if(error){
+        console.log(error)
+        res.status(500).json({
+            status:"failure",
+            message:"Image uploading failed"
+        })
+    }
+    else{
+        try {
+	let imageUrl=req.file.location;
+        let user= await UserModel.findByIdAndUpdate(userID,{photo:imageUrl},{new:true})
+          successHandler(res,user, (message = "Image added"));
+        } catch (e) {
+          failureHandler(res, e.message, e.statusCode);
+        }
+     }
+})
+}
+
 exports.forgotPassword = async (req, res, next) => {
   let error;
   try {
@@ -241,4 +291,26 @@ exports.resetPassword = async (req, res, next) => {
 }catch(e){
   failureHandler(res,e.message,e.statusCode)
 }
+}
+
+
+module.exports.getUserDetails=async(req,res)=>{
+  const userID=req.query.userID;
+  try{
+    if(!userID){
+      let error=new Error("UserId is required..");
+      error.statusCode=400;
+      throw error;
+    }
+    let user=await UserModel.findById(userID);
+    if(!user){
+      let error=new Error("User not found");
+      error.statusCode=400;
+      throw error;
+    }
+    successHandler(res,user,"user data feched successfully");
+  }
+  catch(e){
+    failureHandler(res,e.message,e.statusCode)
+  }
 }

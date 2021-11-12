@@ -1,4 +1,5 @@
 const UserModel=require('../models/userModel');
+const PricingPlans = require("../models/pricing-plans");
 const { successHandler, failureHandler } = require("../utils/responseHandler");
 
 module.exports.useRefferalCodes=async(req,res)=>{
@@ -42,3 +43,38 @@ module.exports.useRefferalCodes=async(req,res)=>{
         failureHandler(res,e.message,e.statusCode)
     }
 }
+
+exports.useCoins = async (req, res) => {
+    try {
+      const {userID, planID} = req.body;
+      if (!userID || !planID){
+        let err = new Error('Missing input fields, userID or planID or couponCode');
+        err.statusCode = 400;
+        throw err;
+      }
+  
+      const planData = await PricingPlans.findById(planID);
+      const user=await UserModel.findById(userID)
+  
+      if (!planData){
+        let err = new Error('Invalid Plan...');
+        err.statusCode = 400;
+        throw err;
+      }
+  
+      const currDate = new Date();
+      if (planData['expiryDate'] < currDate){
+        let err = new Error('Plan expired...');
+        err.statusCode = 400;
+        throw err;
+      }    
+      await UserModel.findByIdAndUpdate(userID,{coins:0})
+      let data = {
+        updatedPrice: planData['price'] - user.coins
+      }
+      successHandler(res, data, (message = "Coins applied successfully..."));
+    } catch (e) {
+      failureHandler(res, e.message, e.statusCode);
+    }
+  };
+  
