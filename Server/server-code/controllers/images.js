@@ -25,7 +25,7 @@ var uploadImages = multer({
           cb(null, file.originalname); //use Date.now() for unique file keys
       }
   })
-}).single('image');
+}).single('file');
 
 exports.addImage = async (req, res) => {
   console.log("Add Image");
@@ -63,6 +63,48 @@ exports.listImages = async (req, res) => {
     }
     const images = await Images.find({userID})
     successHandler(res, images, (message = "Your Images"));
+  }catch(e){
+    failureHandler(res, e.message, e.statusCode);
+  }
+};
+
+exports.addCalories = async (req, res) => {
+  const {imageID,calories}=req.body;
+  try{
+    if (!imageID){
+      let err = new Error('Image ID required ...');
+      err.statusCode = 400;
+      throw err;
+    }
+    const image = await Images.findById(imageID);
+     if (!image){
+      let err = new Error('Image not found ...');
+      err.statusCode = 404;
+      throw err;
+    }
+  const imageOut= await Images.findByIdAndUpdate(imageID,{calories:calories},{new:true})
+    successHandler(res, imageOut, (message = "Your Images"));
+  }catch(e){
+    failureHandler(res, e.message, e.statusCode);
+  }
+};
+
+exports.addName = async (req, res) => {
+  const {imageID,name}=req.body;
+  try{
+    if (!imageID){
+      let err = new Error('Image ID required ...');
+      err.statusCode = 400;
+      throw err;
+    }
+    let image = await Images.findById(imageID);
+     if (!image){
+      let err = new Error('Image not found ...');
+      err.statusCode = 404;
+      throw err;
+    }
+    image = await Images.findByIdAndUpdate(imageID,{name:name},{new:true})
+    successHandler(res, image, (message = "Your Images"));
   }catch(e){
     failureHandler(res, e.message, e.statusCode);
   }

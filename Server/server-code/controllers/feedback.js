@@ -14,13 +14,21 @@ exports.addFeedback = async (req, res) => {
 exports.likeFeedback = async (req, res) => {
   try {
     const feedbackID = req.body.feedbackID;
+    const userID= req.body.userID;
     if (!feedbackID) {
       let err = new Error("Feedback ID required...");
       err.statusCode = 400;
       throw err;
     }
-    await Feedbacks.updateOne({ _id: feedbackID }, { $inc: { likes: 1 } });
-
+    const feedback=await Feedbacks.findById(feedbackID);
+    if(!feedback){
+      let err = new Error("Feedback not found...");
+      err.statusCode = 404;
+      throw err;
+    }  
+    if(!feedback.likes.users.includes(userID)){ 
+      await Feedbacks.updateOne({ _id: feedbackID }, {$inc: { "likes.count": 1 },$push:{ "likes.users" : userID } } );
+    }
     successHandler(res, (data = {}), (message = "Feedback liked !!"));
   } catch (e) {
     failureHandler(res, e.message, e.statusCode);
@@ -30,12 +38,21 @@ exports.likeFeedback = async (req, res) => {
 exports.dislikeFeedback = async (req, res) => {
   try {
     const feedbackID = req.body.feedbackID;
+    const userID= req.body.userID;
     if (!feedbackID) {
       let err = new Error("Feedback ID required...");
       err.statusCode = 400;
       throw err;
     }
-    await Feedbacks.updateOne({ _id: feedbackID }, { $inc: { dislikes: 1 } });
+    const feedback=await Feedbacks.findById(feedbackID);
+    if(!feedback){
+      let err = new Error("Feedback not found...");
+      err.statusCode = 404;
+      throw err;
+    }  
+    if(!feedback.dislikes.users.includes(userID)){ 
+      await Feedbacks.updateOne({ _id: feedbackID }, {$inc: { "dislikes.count": 1 },$push:{ "dislikes.users" : userID } } );
+    }
 
     successHandler(res, (data = {}), (message = "Feedback disliked !!"));
   } catch (e) {

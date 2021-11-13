@@ -13,13 +13,19 @@ const schema = new mongoose.Schema({
     enum: [1, 2, 3, 4, 5],
     default: 5
   },
-  likes: {
-    type: Number,
-    default: 0
+  likes:{
+    count:{
+      type:Number,
+      default:0
+    },
+    users:[]
   },
   dislikes: {
-    type: Number,
-    default: 0
+     count:{
+      type:Number,
+      default:0
+    },
+    users:[]
   }
 });
 

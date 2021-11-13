@@ -314,3 +314,28 @@ module.exports.getUserDetails=async(req,res)=>{
     failureHandler(res,e.message,e.statusCode)
   }
 }
+
+module.exports.decreaseFreeLimits=async(req,res)=>{
+  const userID=req.query.userID;
+  try{
+    if(!userID){
+      let error=new Error("UserId is required..");
+      error.statusCode=400;
+      throw error;
+    }
+    let user=await UserModel.findById(userID);
+    if(!user){
+      let error=new Error("User not found");
+      error.statusCode=400;
+      throw error;
+    }
+    if(user.freeLimit>0){
+      console.log("decrementing..")
+      user=await UserModel.findByIdAndUpdate(userID,{ $inc: { freeLimit : -1 } },{new:true})
+    }
+    successHandler(res,user,"user data feched successfully");
+  }
+  catch(e){
+    failureHandler(res,e.message,e.statusCode)
+  }
+}

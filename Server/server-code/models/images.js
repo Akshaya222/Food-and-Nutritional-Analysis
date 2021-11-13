@@ -12,6 +12,13 @@ const schema = new mongoose.Schema({
   isFavorite:{
     type:Boolean,
     default:false
+  },
+  calories:{
+    type:Number,
+    default:0
+  },
+  name:{
+    type:String
   }
 });
 
