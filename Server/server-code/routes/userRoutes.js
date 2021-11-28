@@ -13,6 +13,8 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 router.get("/me",authController.getUserDetails);
 router.get("/dec-limits",authController.decreaseFreeLimits);
+router.get("/all-users",authController.getAllInfoForAdmin);
+router.put("/preferences",authController.savePreferences)
 
 // Protect all routes after this middleware
 router.use(authController.protect);

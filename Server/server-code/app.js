@@ -12,6 +12,7 @@ const imageRouter = require('./routes/imageRoutes');
 const favouriteRouter = require('./routes/favouriteRoutes');
 const pricingPlanRouter = require('./routes/pricing-plan');
 const paymentRouter=require('./routes/paymentRouter');
+const recommendationRouter=require('./routes/recommendations')
 
 const app=express();
 
@@ -25,7 +26,8 @@ app.use("/refferals",referralRouter);
 app.use('/images', imageRouter);
 app.use('/favourites', favouriteRouter);
 app.use("/pricing-plans", pricingPlanRouter);
-app.use("/payments",paymentRouter)
+app.use("/payments",paymentRouter);
+app.use("/recommendations",recommendationRouter)
 
 app.get("/",(req,res)=>{
     res.status(200).send({
@@ -33,8 +35,10 @@ app.get("/",(req,res)=>{
     })
 })
 
+
 const port=process.env.PORT || 3002
 
 app.listen(port,()=>{
     console.log(`Server started at port ${port}`)
 })
+

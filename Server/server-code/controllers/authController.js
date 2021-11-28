@@ -6,7 +6,10 @@ const {successHandler,failureHandler}=require('../utils/responseHandler');
 const {nanoid}=require('nanoid');
 const AWS=require("aws-sdk");
 const multerS3=require("multer-s3");
-const multer=require('multer')
+const multer=require('multer');
+const PricingPlans = require('../models/pricing-plans');
+const ImageModel=require('../models/images');
+const Feedbacks=require('../models/feedback');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -338,4 +341,77 @@ module.exports.decreaseFreeLimits=async(req,res)=>{
   catch(e){
     failureHandler(res,e.message,e.statusCode)
   }
+}
+
+const getInformation=async()=>{
+    let users=await UserModel.find({});
+    let pricingPlans=await PricingPlans.find({});
+    let feedbacks=await Feedbacks.find({});
+    let images=await ImageModel.find({});
+    let modifiedArray=users.map((user)=>{
+       let userImages=images.filter((image)=>image.userID==user._id);
+       let userFdbks=feedbacks.filter((fdk)=>fdk.userID==user._id);
+        if(user.pricingPlan){
+          let plan=pricingPlans.find((plan)=>plan._id==user.pricingPlan);
+          if(plan){
+             return {
+               ...user._doc,
+               images:userImages,
+               feedbacks:userFdbks,
+               planName:plan.name
+             }
+          }
+          else{
+            return {
+              ...user._doc,
+              images:userImages,
+              feedbacks:userFdbks
+            }
+          }
+        }
+        else{
+          return {
+            ...user._doc,
+            images:userImages,
+            feedbacks:userFdbks
+          }
+        }
+    })
+     return modifiedArray
+}
+
+
+module.exports.savePreferences=async(req,res)=>{
+  const {userId,selectedItems}=req.body;
+  try{
+    if(!userId){
+      let err=new Error("UserId is required...");
+      err.statusCode=400;
+      throw err;
+    }
+    let user=await UserModel.findById(userId);
+    if(!user){
+      let err=new Error("User not found");
+      err.statusCode=404
+      throw err;
+    }
+    user.preferences=selectedItems
+    await user.save()
+    successHandler(res,[],"preferences added successfully");
+  }
+  catch(e){
+    failureHandler(res,e.message,e.statusCode)
+  }
+}
+
+
+
+module.exports.getAllInfoForAdmin=async(req,res)=>{
+    try{
+       const info=await getInformation()
+        successHandler(res,info,"user data feched successfully");
+    }
+    catch(e){
+      failureHandler(res,e.message,e.statusCode)
+    }
 }

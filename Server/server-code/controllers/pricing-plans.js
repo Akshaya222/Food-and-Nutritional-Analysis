@@ -14,11 +14,26 @@ exports.addNewPricingPlan = async (req, res) => {
   }
 };
 
+
+const getNumberOfUsers=(planID)=>{
+      return new Promise(async(resolve,reject)=>{
+        let users=await User.find({pricingPlan:planID});
+        resolve(users.length)
+      })
+}
+
 exports.listPricingPlans = async (req, res) => {
   console.log("List Pricing plans");
   try {
     const data = await PricingPlans.find();
-    successHandler(res, data, (message = "Pricing plans fetched successfully"));
+    const plans=data.map(async(plan)=>{
+      const num=await getNumberOfUsers(plan._id);
+      return {
+        ...plan._doc,numOfUsers:num
+      }
+    })
+    let resolvedPlans=await Promise.all(plans);
+    successHandler(res, resolvedPlans, (message = "Pricing plans fetched successfully"));
   } catch (e) {
     failureHandler(res, e.message, e.statusCode);
   }
@@ -159,3 +174,4 @@ exports.applyCoupon = async (req, res) => {
     failureHandler(res, e.message, e.statusCode);
   }
 };
+
