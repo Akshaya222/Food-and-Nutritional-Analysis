@@ -53,7 +53,7 @@ const callRecommendations=async(preferences)=>{
         },
       }
     try{
-        let data=await fetch(`https://pacific-bayou-07515.herokuapp.com/items/`,config);
+        let data=await fetch(`https://cuisinebasedrecommendation.herokuapp.com/items/`,config);
         let out=await data.json();
         let values=Object.values(out)
         return values;
@@ -109,4 +109,19 @@ exports.getInitialRecommendations=async(req,res)=>{
     catch(e){
       failureHandler(res,e.message,e.statusCode)
     }
+}
+
+exports.getRecByImage=async(req,res)=>{
+  try{
+   // const items=await Recommendations.find({});
+    let response= await fetch("http://20.115.37.217:5003/recommendations/");
+    let data=await response.json()
+    console.log(data.recommendations)
+   // const getAllFoods=getFoodByName(data.recommendations,items);
+   // console.log(getAllFoods)
+    successHandler(res,data.recommendations,"fetched successfully!");
+  }
+  catch(e){
+    failureHandler(res,e.message,e.statusCode)
+  }
 }
